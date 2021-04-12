@@ -1,68 +1,56 @@
+
 import logo from './logo.svg';
+import React from "react"
 import './App.css';
+import Home from './Pages/Home'
+//import Submit from './Pages/Submit';
+import Events from './Pages/Events';
+import Downloads from './Pages/Downloads'
+import  Participants from './Pages/Participants'
+
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router,Route,Switch ,Link,Redirect} from "react-router-dom";
+
 
 function App() {
   return (
-    <div className="App">
-      <p>Conference Management Tool</p>
-      <br>{}</br><br>{}</br><br>{}</br>
+      <Router>
+        <br>{}</br><br>{}</br>
+        <p>Conference Management Tool</p>
+        <br>{}</br><br>{}</br>
+        <div className="App">
 
-      <form>
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">{}</input>
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+
+          <br>{}</br><br>{}</br>
+
+          <Link to="/home">Home</Link>
+          <Link to="/event">Events</Link>
+          <Link to="/part">Participants</Link>
+          <Link to="/download">Downloads</Link>
+
+          <Switch>
+            <Route path="/home">
+              <Home/>
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path="/event">
+              <Events/>
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path="/download">
+              <Downloads/>
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path="/part">
+              <Participants/>
+            </Route>
+          </Switch>
+          <br>{}</br>
         </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-          <input type="password" className="form-control" id="exampleInputPassword1">{}</input>
-        </div>
-        <div className="mb-3 form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1">{}</input>
-          <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
-
-      <br>{}</br><br>{}</br><br>{}</br>
-
-      <span>{  }</span>
-      <table className="table">
-        <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colSpan="2">Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-        </tbody>
-      </table>
-
-      <br>{}</br><br>{}</br><br>{}</br>
-      <button type="button" class="btn btn-info">click</button>
-
-
-    </div>
+      </Router>
   );
 }
 
