@@ -1,54 +1,30 @@
+
 import '../App.css';
-import React from "react";
+//import React from "react";
+import React, { Component } from "react";
+import Events from "./Events";
+import MainH from "../Connectors/MainHome";
 
+class Home extends Component{
+    state = {
+        renderView: 0
+    };
 
+    clickBtn = e => {
+        this.setState({
+            renderView: +e.target.value
+        });
+    };
+    render() {
 
-const homePage=()=>{
-    return(
-        <div>
-            <h1>This is Homepage</h1>
-            <h1>Welcome</h1>
+        switch (this.state.renderView) {
+            case 1:
+                return <Events/>;
+            default:
+                return <MainH clickBtn={this.clickBtn} />;
+        };
 
-            <br>{}</br> <br>{}</br>
-
-            <div className="card">
-                <div className="card-body">
-                    <table className="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colSpan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <button type="button" className="btn btn-info"  >Add an event</button>
-        </div>
-
-    );
+    };
 };
 
-export  default homePage;
+export  default Home;

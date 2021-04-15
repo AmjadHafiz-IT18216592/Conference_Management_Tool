@@ -1,36 +1,31 @@
 import '../App.css';
-import React from "react";
+import React , {Component} from "react";
+import jspPDF from  'jspdf';
+import logo from '../../src/Images/react-preview1.jpeg';
+
+class downloadPage extends Component{
+    pdfGenerate=()=>{
+        var doc = new jspPDF('landscape','px','a4','false');
+
+        doc.addImage(logo,'JPEG',65,20,500,40);
+        doc.save('im.pdf');
 
 
-const downloadPage=()=>{
-    return(
+    }
+    render(){
+        return(
 
-        <div>
-            <h1>This is download page</h1>
+            <div>
+                <h1>This is download page</h1>
 
-            <br>{}</br><br>{}</br><br>{}</br>
-            <form>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">{}</input>
-                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="exampleInputPassword1">{}</input>
-                </div>
-                <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1">{}</input>
-                    <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit" className="btn btn-primary">
-                    Submit
-                </button>
-            </form>
+                <br>{}</br><br>{}</br><br>{}</br>
+                <button onClick={this.pdfGenerate}>Download PDF</button>
 
-        </div>
 
-    );
+            </div>
+
+        );
+    };
 };
 
 export  default downloadPage;

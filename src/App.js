@@ -15,13 +15,13 @@ import { BrowserRouter as Router,Route,Switch ,Link,Redirect} from "react-router
 function App() {
   return (
       <Router>
-        <br>{}</br><br>{}</br>
-        <p>Conference Management Tool</p>
-        <br>{}</br><br>{}</br>
+        <br>{}</br>
+        <p className="mainHeading" >Conference Management Tool</p>
+        <br>{}</br>
         <div className="App">
 
 
-          <br>{}</br><br>{}</br>
+          <br>{}</br>
 
           <Link to="/home">Home</Link>
           <Link to="/event">Events</Link>
