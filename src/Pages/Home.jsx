@@ -3,6 +3,7 @@ import '../App.css';
 //import React from "react";
 import React, { Component } from "react";
 import Events from "./Events";
+//import NewEvents from "../Pages/NewEvent";
 import MainH from "../Connectors/MainHome";
 
 class Home extends Component{
@@ -23,6 +24,7 @@ class Home extends Component{
             default:
                 return <MainH clickBtn={this.clickBtn} />;
         };
+
 
     };
 };

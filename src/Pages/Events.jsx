@@ -1,14 +1,16 @@
 
 //import React from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import React, { Component } from "react";
-import {useState} from "react";
+//import {useState} from "react";
 import '../App.css';
 import Submit from './Submit';
 import Main from '../Connectors/Main';
-import {DatePickerComponent} from "@syncfusion/ej2-react-calendars";
+//import {DatePickerComponent, TimePickerComponent} from "@syncfusion/ej2-react-calendars";
+//import axios from "axios";
 
 class Events extends Component{
+
     state = {
         renderView: 0
     };
@@ -31,6 +33,6 @@ class Events extends Component{
 }
 
 //const rootElement = document.getElementById("root");
-//ReactDOM.render(<Events/>, rootElement);
+//ReactDOM.render(<Events/>, 'root');
 
 export default Events;
