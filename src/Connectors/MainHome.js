@@ -34,7 +34,7 @@ const MainHome =()=>{
 
             <br>{}</br>
 
-            <Link to="/event"><h3>New Conferance</h3></Link>
+            <Link to="/event" style={{textDecoration:'none'}}><h3>New Conferance</h3></Link>
                 <Switch>
                     <Route path="/event">
                         <Events/>

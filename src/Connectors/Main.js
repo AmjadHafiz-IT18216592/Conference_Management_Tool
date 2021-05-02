@@ -103,6 +103,7 @@ import Workshop from "./Workshop";
          console.log("---------------"+event.target.value);
      }
      changeAmount=event=>{
+         
          this.setState({
              amount:+event.target.value
          });

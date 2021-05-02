@@ -35,36 +35,36 @@ function App() {
           <div className="App">
 
           <Switch>
-            <Route path="/home"><Home/></Route>
+            <Route path="/home" style={{textDecoration:'none'}}><Home/></Route>
 
           </Switch>
           <Switch>
-            <Route path="/event">
+            <Route path="/event" style={{textDecoration:'none'}}>
               <Events/>
             </Route>
           </Switch>
           <Switch>
-            <Route path="/download">
+            <Route path="/download" style={{textDecoration:'none'}}>
               <Downloads/>
             </Route>
           </Switch>
           <Switch>
-            <Route path="/part">
+            <Route path="/part" style={{textDecoration:'none'}}>
               <Participants/>
             </Route>
           </Switch>
               <Switch>
-                  <Route path="/data">
+                  <Route path="/data" style={{textDecoration:'none'}}>
                       <Data/>
                   </Route>
               </Switch>
               <Switch>
-                  <Route path="/workshops">
+                  <Route path="/workshops"style={{textDecoration:'none'}}>
                       <Workshop/>
                   </Route>
               </Switch>
               <Switch>
-                  <Route path="/presentations">
+                  <Route path="/presentations" style={{textDecoration:'none'}}>
                       <Presentation/>
                   </Route>
               </Switch>
