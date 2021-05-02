@@ -46,6 +46,7 @@ form {
 .card {
   padding-left: 100px;
   padding-right: 100px;
+  box-shadow: 0 0 8px #ccc;
 }
 
 .mainHeading{

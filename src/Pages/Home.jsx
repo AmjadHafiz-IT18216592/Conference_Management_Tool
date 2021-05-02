@@ -1,12 +1,11 @@
 
 import '../App.css';
-//import React from "react";
 import React, { Component } from "react";
 import Events from "./Events";
-//import NewEvents from "../Pages/NewEvent";
 import MainH from "../Connectors/MainHome";
 
 class Home extends Component{
+
     state = {
         renderView: 0
     };
@@ -16,7 +15,9 @@ class Home extends Component{
             renderView: +e.target.value
         });
     };
+
     render() {
+
 
         switch (this.state.renderView) {
             case 1:
@@ -26,7 +27,9 @@ class Home extends Component{
         };
 
 
+
     };
 };
 
 export  default Home;
+

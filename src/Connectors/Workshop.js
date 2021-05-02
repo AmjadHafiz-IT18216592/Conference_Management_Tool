@@ -1,19 +1,18 @@
 
 import React, {useEffect, useState} from "react";
 import '../App.css';
-import Events from "./Main";
+import Events from "../Pages/Events";
 import MainH from "../Connectors/MainHome";
 import axios from "axios";
 
-import {Link, NavLink, Route, Router,Switch} from "react-router-dom";
-import {isCalendarType} from "react-calendar/dist/umd/shared/propTypes";
 
-const MainHome =()=>{
+
+const WorkShops =()=>{
     const [conference,setConference] = useState([]);
 
     const getConferenceData = async ()=> {
         try{
-            const data = await axios.get('http://localhost:4000/app/readDetails');
+            const data = await axios.get('http://localhost:4000/app/workshops');
             console.log(data.data);
             setConference(data.data);
         }
@@ -26,20 +25,12 @@ const MainHome =()=>{
 
     return(
 
+
         <div className="card-01">
 
 
             <br>{}</br>
             <h1>Welcome</h1>
-
-            <br>{}</br>
-
-            <Link to="/event"><h3>New Conferance</h3></Link>
-                <Switch>
-                    <Route path="/event">
-                        <Events/>
-                    </Route>
-                </Switch>
 
             <br>{}</br><br>{}</br>
             <div className="card">
@@ -59,23 +50,26 @@ const MainHome =()=>{
                         </tr>
                         </thead>
                         <tbody>
-
                         {
-                            conference.map((item)=>{
+                        conference.filter(item=>{
+                            if(item.workshop.includes("true")){
+                            return item;
+                        }
+                        }).map((item)=>{
                             return(
-                            <tr>
-                                <th scope="row">{item.title}</th>
-                                <td>{item.about}</td>
-                                <td>
-                                   Presentation and Workshop
-                                </td>
-                                <td>{item.email}</td>
-                                <td>{item.date}</td>
-                                <td>{item.from}</td>
-                                <td>{item.to}</td>
-                                <td>{item.place}</td>
-                                <td>{item.amount}</td>
-                            </tr>
+                                <tr>
+                                    <th scope="row">{item.title}</th>
+                                    <td>{item.about}</td>
+                                    <td>
+                                        Workshop
+                                    </td>
+                                    <td>{item.email}</td>
+                                    <td>{item.date}</td>
+                                    <td>{item.from}</td>
+                                    <td>{item.to}</td>
+                                    <td>{item.place}</td>
+                                    <td>{item.amount}</td>
+                                </tr>
                             );
                         })}
                         </tbody>
@@ -87,4 +81,4 @@ const MainHome =()=>{
 
 
 }
-export default MainHome;
+export default WorkShops;

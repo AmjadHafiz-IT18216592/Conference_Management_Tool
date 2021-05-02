@@ -1,37 +1,42 @@
 
-import logo from './logo.svg';
+
 import React from "react"
 import './App.css';
-import Home from './Pages/Home'
+//import Home from './Pages/Home'
+import Home from './Connectors/MainHome'
 //import Submit from './Pages/Submit';
-import Events from './Pages/Events';
+//import Events from './Pages/Events';
+import Events from './Connectors/Main';
 import Downloads from './Pages/Downloads'
 import  Participants from './Pages/Participants'
-
+import Data from './Server/fetch';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router,Route,Switch ,Link,Redirect} from "react-router-dom";
-
+import Presentation from "../src/Connectors/presEvent";
+import Workshop from "../src/Connectors/Workshop";
 
 function App() {
   return (
       <Router>
-        <br>{}</br>
-        <p className="mainHeading" >Conference Management Tool</p>
-        <br>{}</br>
-        <div className="App">
+        <header>
+
+        <h1>Conference Management Tool</h1>
 
 
-          <br>{}</br>
+<ul>
+  <li><Link to="/home">Home</Link></li>
+  <li><Link to="/event">Events</Link></li>
+  <li><Link to="/part">Participants</Link></li>
+  <li><Link to="/download">Downloads</Link></li>
+    <li><Link to="/data">Data</Link></li>
 
-          <Link to="/home">Home</Link>
-          <Link to="/event">Events</Link>
-          <Link to="/part">Participants</Link>
-          <Link to="/download">Downloads</Link>
+</ul>
+          </header>
+          <div className="App">
 
           <Switch>
-            <Route path="/home">
-              <Home/>
-            </Route>
+            <Route path="/home"><Home/></Route>
+
           </Switch>
           <Switch>
             <Route path="/event">
@@ -48,10 +53,27 @@ function App() {
               <Participants/>
             </Route>
           </Switch>
+              <Switch>
+                  <Route path="/data">
+                      <Data/>
+                  </Route>
+              </Switch>
+              <Switch>
+                  <Route path="/workshops">
+                      <Workshop/>
+                  </Route>
+              </Switch>
+              <Switch>
+                  <Route path="/presentations">
+                      <Presentation/>
+                  </Route>
+              </Switch>
           <br>{}</br>
         </div>
+
       </Router>
   );
 }
 
 export default App;
+

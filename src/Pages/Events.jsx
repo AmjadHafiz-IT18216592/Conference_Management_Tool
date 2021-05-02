@@ -1,13 +1,11 @@
 
-//import React from "react";
-//import ReactDOM from "react-dom";
+
 import React, { Component } from "react";
-//import {useState} from "react";
+
 import '../App.css';
 import Submit from './Submit';
 import Main from '../Connectors/Main';
-//import {DatePickerComponent, TimePickerComponent} from "@syncfusion/ej2-react-calendars";
-//import axios from "axios";
+
 
 class Events extends Component{
 
@@ -36,3 +34,4 @@ class Events extends Component{
 //ReactDOM.render(<Events/>, 'root');
 
 export default Events;
+

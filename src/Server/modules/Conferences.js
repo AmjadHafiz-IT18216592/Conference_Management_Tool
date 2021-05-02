@@ -12,11 +12,11 @@ const ConferenceSchema = new mongoose.Schema({
         required:true,
     },
     presentation:{
-        type : Boolean,
+        type : String,
         required:true,
     },
     workshop:{
-        type : Boolean,
+        type : String,
         required:true,
     },
     email:{
@@ -32,6 +32,10 @@ const ConferenceSchema = new mongoose.Schema({
         required:true,
     },
     to:{
+        type : String,
+        required:true,
+    },
+    place:{
         type : String,
         required:true,
     },

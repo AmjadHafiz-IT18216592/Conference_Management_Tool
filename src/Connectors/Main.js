@@ -1,13 +1,14 @@
-
-
 import React from "react";
 import {DatePickerComponent} from "@syncfusion/ej2-react-calendars";
 import {TimePickerComponent} from "@syncfusion/ej2-react-calendars";
 import '../App.css';
-//import Submit from '../Pages/Submit';
-//import Main from '../Connectors/Main';
-//import events from '../Pages/Events'
 import axios from "axios";
+import firbase from "../firebase"
+import Presentation from "./presEvent";
+import WorkShops from "./Workshop";
+import {Link, NavLink, Route, Router, Switch} from "react-router-dom";
+import Home from "./MainHome";
+import Workshop from "./Workshop";
 
 
 
@@ -19,13 +20,15 @@ import axios from "axios";
          this.state={
              title:'',
              about:'',
-             presentation:false,
-             workshop:false,
+             presentation:'',
+             workshop:'',
              email:'',
              date:'',
              from:'',
              to:'',
-             amount:0
+             place:'',
+             amount:0,
+             files:null
          }
          this.changeTitle= this.changeTitle.bind(this);
          this.changeAbout = this.changeAbout.bind(this);
@@ -37,8 +40,8 @@ import axios from "axios";
          this.changeDate = this.changeDate.bind(this);
          this.changeTo = this.changeTo.bind(this);
          this.changeFrom = this.changeFrom.bind(this);
+         this.selectPlace = this.selectPlace.bind(this);
          this.onSubmit = this.onSubmit.bind(this);
-
      }
      changeTitle(event){
          this.setState({
@@ -105,7 +108,40 @@ import axios from "axios";
          });
          console.log("---------------"+event.target.value);
      }
+     selectPlace=event=>{
+         this.setState({
+             place:event.target.value
+         });
+         console.log("---------------"+event.target.value);
+     }
+     fileSelectedHandler= (files)=>{
+         this.setState({
+             files:files
+         })
 
+     }
+     fileUploadHandler=()=>{
+
+
+         let bucketName ='images'
+         let file = this.state.files[0]
+         let storageRef = firbase.storage().ref(`${bucketName}/${file.name}`)
+         let uploadTask = storageRef.put(file)
+         uploadTask.on(firbase.storage.TaskEvent.STATE_CHANGED,()=>{
+             let downloadUrl = uploadTask.snapshot.getDownloadURL
+
+         })
+
+         /*
+         const fd = new FormData();
+         fd.append("image",this.state.selectedFle,this.state.selectedFle.name);
+        // fd.append("upload_preset","bookCover");
+         axios.post("https://console.firebase.google.com/project/shopping-tool-d54ec/storage/shopping-tool-d54ec.appspot.com/files",fd).then(
+             res=>{
+                 console.log(res)
+             })
+          */
+     }
      onSubmit(event){
          event.preventDefault();
          const addConference={
@@ -117,6 +153,7 @@ import axios from "axios";
              date:this.state.date,
              from:this.state.from,
              to:this.state.to,
+             place:this.state.place,
              amount:this.state.amount
          }
          axios.post('http://localhost:4000/app/addConference',addConference).then(response=> console.log(response.data))
@@ -130,6 +167,7 @@ import axios from "axios";
              date:'',
              from:'',
              to:'',
+             place:'',
              amount:''
          });
 
@@ -158,7 +196,7 @@ import axios from "axios";
 
             <div>
                 <br>{}</br><br>{}</br>
-                Event Page{" "}
+
                 <br>{}</br>
                 <div>
 
@@ -171,7 +209,7 @@ import axios from "axios";
 
                                             <div className="mb-3">
                                                 <label htmlFor="inputName" className="form-label">Conferance Title</label>
-                                                <input type="name" className="form-control" id="inputName"
+                                                <input type="name" className="form-control" id="inputName" placeholder="Enter title of your conference"
                                                        onChange={this.changeTitle}
                                                        value={this.props.title}
                                                 />
@@ -181,7 +219,7 @@ import axios from "axios";
                                                 <div>
                                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Discription</label>
                                                     <textarea className="form-control" id="exampleFormControlTextarea1"
-                                                              rows="2"
+                                                              rows="2" placeholder="Enter a small discription about your conference"
                                                               onChange={this.changeAbout}
                                                               value={this.props.about}
                                                     />
@@ -196,7 +234,7 @@ import axios from "axios";
                                                     <input className="form-check-input" type="checkbox"
                                                            id="flexCheckDefault"
                                                            onChange={this.changePresentation}
-                                                           value={false}
+                                                           value={this.props.value}
                                                     />
                                                     <label className="form-check-label" htmlFor="flexCheckDefault">
                                                         Research paper presentations
@@ -206,7 +244,7 @@ import axios from "axios";
                                                     <input className="form-check-input" type="checkbox"
                                                            id="flexCheckDefault"
                                                            onChange={this.changeWorkshop}
-                                                           value={false}
+                                                           value={this.props.value}
                                                     />
                                                     <label className="form-check-label" htmlFor="flexCheckChecked">
                                                         Workshops
@@ -216,6 +254,7 @@ import axios from "axios";
                                             <div>
                                                 <label htmlFor="inputEmail4" className="form-label">Host Email</label>
                                                 <input type="email" className="form-control" id="inputEmail4"
+                                                       placeholder="Enter your email"
                                                        onChange={this.changeHostEmail}
                                                        value={this.props.email}
                                                 />
@@ -229,22 +268,24 @@ import axios from "axios";
                                             </div>
                                             <div className="col-4">
                                                 <label htmlFor="inputDate" className="form-label">From</label>
-                                                <TimePickerComponent placeholder="Enter time"
+                                                <TimePickerComponent placeholder="Enter start time"
                                                                      onChange={this.changeFrom}
                                                                      value={this.props.from}
                                                 />
                                             </div>
                                             <div className="col-4">
                                                 <label htmlFor="inputDate" className="form-label">To</label>
-                                                <TimePickerComponent placeholder="Enter time"
+                                                <TimePickerComponent placeholder="Enter end time"
                                                                      onChange={this.changeTo}
                                                                      value={this.props.to}/>
                                             </div>
 
                                             <div className="col-6">
                                                 <label htmlFor="inputHallno" className="form-label">Hall No</label>
-                                                <select id="inputHallno" className="form-select">
-                                                    <option selected>...</option>
+                                                <select id="inputHallno" className="form-select"
+                                                        onChange={this.selectPlace}
+                                                value={this.props.place}>
+                                                    <option>Select  place</option>
                                                     <option>IT02</option>
                                                     <option>IT03</option>
                                                 </select>
@@ -252,19 +293,22 @@ import axios from "axios";
                                             <div className="col-6">
                                                 <label htmlFor="inputNumber" className="form-label">Amount</label>
                                                 <input type="text" className="form-control" id="inputNumber"
+                                                       placeholder="Enter amount"
                                                        onChange={this.changeAmount}
                                                        value={this.props.amount}
                                                 />
                                             </div>
 
-                                            <div className="col-md-9">
-                                                <label htmlFor="formFileMultiple" className="form-label">Multiple files input
-                                                    example</label>
-                                                <input className="form-control" type="file" id="formFileMultiple" multiple/>
+                                            <div className="col-9">
+                                                <input className="form-control" type="file" id="formFileMultiple" multiple
+                                                       onChange={(e)=>{this.fileSelectedHandler(e.target.files)}}
+                                                />
                                             </div>
                                             <div className="col-3">
-                                                <br>{}</br><br>{}</br>
-                                                <button  type="submit" className="btn btn-primary">
+                                                <label/>
+                                                <button  type="submit" className="btn btn-primary"
+                                                         onClick={this.fileUploadHandler}
+                                                >
                                                     Upload
                                                 </button>
                                             </div>
@@ -279,17 +323,22 @@ import axios from "axios";
                             </div>
                             <div className="col-4">
                                 <div className="list-group">
-                                    <a href="#" className="list-group-item list-group-item-action active" aria-current="true">
+
+
+
+                                        <a href="/presentations" className="list-group-item list-group-item-action active" aria-current="true">
+                                            <div className="d-flex w-100 justify-content-between">
+                                                <h3>Research Presentations</h3>
+                                                <small>3 days ago</small>
+                                            </div>
+                                            <p className="mb-1">Some placeholder content in a paragraph.</p>
+                                            <small>And some small print.</small>
+                                        </a>
+
+
+                                    <a href="/workshops" className="list-group-item list-group-item-action">
                                         <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1">Research paper presentations</h5>
-                                            <small>3 days ago</small>
-                                        </div>
-                                        <p className="mb-1">Some placeholder content in a paragraph.</p>
-                                        <small>And some small print.</small>
-                                    </a>
-                                    <a href="#" className="list-group-item list-group-item-action">
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1">Workshops</h5>
+                                            <h3>Workshops</h3>
                                             <small className="text-muted">3 days ago</small>
                                         </div>
                                         <p className="mb-1">Some placeholder content in a paragraph.</p>
@@ -301,8 +350,8 @@ import axios from "axios";
                         </div>
                     </div>
                 </div>
-            </div>);
-    };};
+            </div>)
+    }}
 
 
 export default Mevent;

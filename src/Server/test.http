@@ -1,4 +1,5 @@
-POST http://localhost:4000/app/addConference
+GET http://localhost:4000/app/readDetails
+GET http://localhost:4000/app/workshops
 Content-Type: application/json
 
 
