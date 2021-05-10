@@ -4,6 +4,7 @@ import {TimePickerComponent} from "@syncfusion/ej2-react-calendars";
 import '../App.css';
 import axios from "axios";
 import firbase from "../firebase"
+import {ToastContainer,toast,Zoom,Bounce} from "react-toastify"
 import Presentation from "./presEvent";
 import WorkShops from "./Workshop";
 import {Link, NavLink, Route, Router, Switch} from "react-router-dom";
@@ -145,33 +146,45 @@ import Workshop from "./Workshop";
      }
      onSubmit(event){
          event.preventDefault();
-         const addConference={
-             title:this.state.title,
-             about:this.state.about,
-             presentation:this.state.presentation,
-             workshop:this.state.workshop,
-             email:this.state.email,
-             date:this.state.date,
-             from:this.state.from,
-             to:this.state.to,
-             place:this.state.place,
-             amount:this.state.amount
+         if(this.state.title == ""||this.state.about==""||this.state.email==""||this.state.date==""||this.state.from==""||this.state.to==""||this.state.place==""||this.state.amount==0){
+             toast.warn("Field may be empty!");
          }
-         axios.post('http://localhost:4000/app/addConference',addConference).then(response=> console.log(response.data))
-         //console.log("---------------in side submit button"+event.target.value);
-         this.setState=({
-             title:'',
-             about:'',
-             presentation:'',
-             workshop:'',
-             email:'',
-             date:'',
-             from:'',
-             to:'',
-             place:'',
-             amount:''
-         });
+         else if(this.state.presentation==""&&this.state.workshop==""){
+             toast.warn("Select atleast one event!");
+         }
+         else if(this.state.amount< 10 && this.state.amount > 1000){
+             toast.error("Amount should be between 10 and 1000 persons");
+         }
+         else{
 
+             const addConference={
+                 title:this.state.title,
+                 about:this.state.about,
+                 presentation:this.state.presentation,
+                 workshop:this.state.workshop,
+                 email:this.state.email,
+                 date:this.state.date,
+                 from:this.state.from,
+                 to:this.state.to,
+                 place:this.state.place,
+                 amount:this.state.amount
+             }
+             axios.post('http://localhost:4000/app/addConference',addConference).then(response=> console.log(response.data))
+             //console.log("---------------in side submit button"+event.target.value);
+             this.setState=({
+                 title:'',
+                 about:'',
+                 presentation:'',
+                 workshop:'',
+                 email:'',
+                 date:'',
+                 from:'',
+                 to:'',
+                 place:'',
+                 amount:''
+             });
+
+         }
      }
 
      state = {
@@ -196,6 +209,7 @@ import Workshop from "./Workshop";
 
 
             <div>
+
                 <br>{}</br><br>{}</br>
 
                 <br>{}</br>
@@ -301,6 +315,7 @@ import Workshop from "./Workshop";
                                             </div>
 
                                             <div className="col-9">
+                                                <label htmlFor="inputNumber" className="form-label">Documents related to your Conference</label>
                                                 <input className="form-control" type="file" id="formFileMultiple" multiple
                                                        onChange={(e)=>{this.fileSelectedHandler(e.target.files)}}
                                                 />
@@ -351,6 +366,7 @@ import Workshop from "./Workshop";
                         </div>
                     </div>
                 </div>
+                <ToastContainer/>
             </div>)
     }}
 

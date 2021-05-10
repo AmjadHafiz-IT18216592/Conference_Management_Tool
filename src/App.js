@@ -14,6 +14,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router,Route,Switch ,Link,Redirect} from "react-router-dom";
 import Presentation from "../src/Connectors/presEvent";
 import Workshop from "../src/Connectors/Workshop";
+import Files from "../src/Connectors/Files"
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
   <li><Link to="/event">Events</Link></li>
   <li><Link to="/part">Participants</Link></li>
   <li><Link to="/download">Downloads</Link></li>
-    <li><Link to="/data">Data</Link></li>
+    <li><Link to="/files">Files</Link></li>
 
 </ul>
           </header>
@@ -66,6 +67,11 @@ function App() {
               <Switch>
                   <Route path="/presentations" style={{textDecoration:'none'}}>
                       <Presentation/>
+                  </Route>
+              </Switch>
+              <Switch>
+                  <Route path="/files" style={{textDecoration:'none'}}>
+                  <Files/>
                   </Route>
               </Switch>
           <br>{}</br>
